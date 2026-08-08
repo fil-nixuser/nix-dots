@@ -48,6 +48,10 @@
 
   services.printing.enable = true;
 
+  services.resolved.enable = true;
+
+  networking.nameservers = ["31.192.108.180" "176.99.11.77"];
+
    services.pipewire = {
      enable = true;
      pulse.enable = true;
@@ -73,7 +77,7 @@
 
   programs.zsh.enable = true;
   programs.niri.enable = true;
-  
+  programs.steam.enable = true;  
    environment.systemPackages = with pkgs; [
      helix
      ghostty
