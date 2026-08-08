@@ -19,8 +19,8 @@
 	services.awww.enable = true;
 	programs.git = {
 		enable = true;
-		user.name = "fil-nixuser";
-		user.email = "fil228009ok@gmail.com";
+		userName = "fil-nixuser";
+		userEmail = "fil228009ok@gmail.com";
 	};
 
 	programs.fuzzel = {
