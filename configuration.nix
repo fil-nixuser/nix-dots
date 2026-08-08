@@ -1,16 +1,11 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, inputs, ... }:
-
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -38,12 +33,11 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
-  # Use latest kernel.
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nil"; # Define your hostname.
+  networking.hostName = "nil";
 
-  # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal" ];
@@ -51,16 +45,15 @@
   time.timeZone = "Asia/Yekaterinburg";
 
   nixpkgs.config.allowUnfree = true; 
- # Enable CUPS to print documents.
+
   services.printing.enable = true;
 
-  
    services.pipewire = {
      enable = true;
      pulse.enable = true;
    };
   services.displayManager.ly.enable = true;
-  # Enable touchpad support (enabled default in most desktopManager).
+
    services.libinput.enable = true;
 
    services.zapret.enable = true;
@@ -109,7 +102,7 @@
   services.openssh.enable = true;
 	
 
-  system.stateVersion = "26.05"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment? yeah, bro. i totally read that comment
 
 }
 
