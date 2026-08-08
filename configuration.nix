@@ -50,7 +50,7 @@
 
   services.resolved.enable = true;
 
-  networking.nameservers = ["31.192.108.180" "176.99.11.77"];
+  networking.nameservers = ["111.88.96.50" "111.88.96.51"];
 
    services.pipewire = {
      enable = true;
