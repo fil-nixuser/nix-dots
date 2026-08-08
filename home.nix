@@ -83,6 +83,7 @@
 				height = 30;
 
 				modules-left = [
+					"custom/icon"
 					"niri/workspaces" 
 				];
 				modules-center = [
@@ -92,7 +93,7 @@
 					"wireplumber"
 					"backlight"
 					"battery"
-					"mpris"
+					"network"
 				];
 				"wireplumber" = {
 					scroll-step = 5;
@@ -108,6 +109,10 @@
 					device = "intel-backlight";
 					format = "{icon} {percent}%";
 					format-icons = ["󰃞" "󰃟" "󰃠"];
+				};
+				"custom/icon" = {
+					format = "";
+					on-click = "fuzzel";
 				};
 				battery = {
 					states = {
@@ -133,14 +138,21 @@
 					];
 				};
 				clock = {
-					format = "{:%m-%d-%Y %H:%M}";
+					format = "{:%H:%M}";
+				};
+				network = {
+					format-wifi = "󰤨";
+					format-disconnected = "󰤭";
+					tooltip-format-wifi = "{signalStrength}";
+					tooltip-format-disconnected = "disconnected";
+					on-click = "ghostty +new-window -e nmtui";
 				};
 			};
 		};
 		style = "
 				* {
 					font-family: JetBrains Nerd Font Mono;
-					font-size: 16px;
+					font-size: 14px;
 					color: #ffffff;
 				}
 				window#waybar {
@@ -167,6 +179,9 @@
 				}
 				#mpris {
 					padding: 0 4px;
+				}
+				#battery{
+					margin: 8px;
 				}
 				#battery.warning {
 			    background: rgba(246, 193, 119, 0.15);
@@ -196,7 +211,13 @@
 				#backlight {
 					margin: 5px;
 				}
-				
+				#custom-icon {
+					padding-right: 8px;
+					padding-left: 8px;
+				}
+				#network {
+					padding-right: 16px;
+				}
 			";
 	};
 	
@@ -247,8 +268,7 @@
 				passes = 3;
 				noise = 0;
 				saturation = 1.0;	
-			};
-			
+			};			
 			prefer-no-csd = {};
 			hotkey-overlay = {
 				skip-at-startup = {};
@@ -264,6 +284,8 @@
 					active-color = "#ffffff";
 					inactive-color = "#4d4d4d";
 				};
+				always-center-single-column = {};
+				gaps = 4;
 			};
 			cursor = {
 				xcursor-theme = "macOS";
