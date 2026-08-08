@@ -1,0 +1,334 @@
+{ config, pkgs, ...}:
+
+{
+	home.username = "fil";
+	home.homeDirectory = "/home/fil";
+	programs.firefox.enable = true;
+	home.stateVersion = "26.05";
+	home.pointerCursor = {
+		enable = true;
+  	gtk.enable = true;
+  	x11.enable = true;
+  	package = pkgs.apple-cursor;
+  	name = "macOS";
+  	size = 24;
+	};
+	home.packages = with pkgs; [
+		wev
+	];
+	services.awww.enable = true;
+	programs.git = {
+		enable = true;
+		userName = "fil-nixuser";
+		userEmail = "fil228009ok@gmail.com";
+	};
+
+	programs.fuzzel = {
+		enable = true;
+		settings = {
+			main = {
+				terminal = "${pkgs.ghostty}/bin/ghostty -e";
+				layer = "overlay";
+			};
+			colors = {
+				background = "00000000";
+				border = "ffffffff";
+				selection = "000000ff";
+				selection-text = "ffffffff";
+				text = "ffffffff";
+			};
+			border = {
+				radius = 0;
+				width = 2;
+			};
+		};
+	};
+	
+	programs.yazi = {
+		enable = true;
+		enableZshIntegration = true;
+		plugins = {
+			smart-enter = pkgs.fetchFromGitHub {
+				owner = "yazi-rs";
+				repo = "plugins";
+				rev = "0be29a913ad61c6d119abfaaf253e96e6af5db67";
+				hash = "sha256-IDmmXzQKFx3QZ9u5lMwcTOeWeMPWzIBeKBXkGAgJMaI=";
+			} + "/smart-enter.yazi";
+			mount = pkgs.fetchFromGitHub {
+				owner = "yazi-rs";
+				repo = "plugins";
+				rev = "0be29a913ad61c6d119abfaaf253e96e6af5db67";
+				hash = "sha256-IDmmXzQKFx3QZ9u5lMwcTOeWeMPWzIBeKBXkGAgJMaI=";
+			} + "/mount.yazi";
+		};
+		keymap = {
+			mgr.prepend_keymap = [
+				{
+					on = "<Enter>";
+					run = "plugin smart-enter";
+				}
+				{
+					on = "M";
+					run = "plugin mount";
+				}
+			];
+		};
+	};
+	programs.waybar = {
+		enable = true;
+		settings = {
+			mainBar = {
+				layer = "top";
+				position = "bottom";
+				height = 30;
+
+				modules-left = [
+					"niri/workspaces" 
+				];
+				modules-center = [
+					"clock"
+				];
+				modules-right = [
+					"wireplumber"
+					"backlight"
+					"battery"
+					"mpris"
+				];
+				"wireplumber" = {
+					scroll-step = 5;
+					format = " {icon} {volume}%";
+					format-muted = "󰝟 muted";
+					format-icons = {
+						default = ["󰕿" "󰖀" "󰕾"];
+						headphones = "󰋋";
+						headset = "󰋎";
+					};
+				};
+				backlight = {
+					device = "intel-backlight";
+					format = "{icon} {percent}%";
+					format-icons = ["󰃞" "󰃟" "󰃠"];
+				};
+				battery = {
+					states = {
+						warning = 30;
+						critical = 15;
+					};
+					format = "{icon} {capacity}%";
+					format-charging = "󰂄 {capacity}%";
+					format-plugged = "󱟦 {capacity}%";
+					format-full = "󰁹 {capacity}%";
+					format-icons = [
+						"󰂎"
+						"󰁺"
+						"󰁻"
+						"󰁼"
+						"󰁽"	
+						"󰁾"
+						"󰁿"
+						"󰂀"
+						"󰂁"
+						"󰂂"
+						"󰁹"
+					];
+				};
+				clock = {
+					format = "{:%m-%d-%Y %H:%M}";
+				};
+			};
+		};
+		style = "
+				* {
+					font-family: JetBrains Nerd Font Mono;
+					font-size: 16px;
+					color: #ffffff;
+				}
+				window#waybar {
+					background: transparent;
+					border-radius: 0px;
+					margin:0px;
+					padding: 0px 0px;
+				}
+				#workspaces button {
+					padding: 0px 1px;
+					margin: 3px 2px;
+					border-radius: 0px;
+					background: transparent;
+					color: #ffffff;
+				}
+				#workspaces button.active {
+					border-top: 2px solid #ffffff;
+				}
+				#workspaces button.hover {
+					background: #1e1e1e;
+				}
+				#workspaces button.urgent {
+					background: #5b4950;
+				}
+				#mpris {
+					padding: 0 4px;
+				}
+				#battery.warning {
+			    background: rgba(246, 193, 119, 0.15);
+  			  padding: 1px 4px;
+				}
+
+				#battery.critical {
+    			background: rgba(235, 111, 146, 0.18);
+    			padding: 1px 4px;
+				}
+
+				#wireplumber.muted {
+    			opacity: 0.6;
+				}
+				tooltip {
+			    background: #111111;
+    			border: 1px solid #333333;
+				}
+
+				tooltip label {
+    			color: #e0def4;
+    			font-size: 11px;
+				}
+				#wireplumber {
+					margin: 5px;
+				}
+				#backlight {
+					margin: 5px;
+				}
+				
+			";
+	};
+	
+	programs.ghostty = {
+		enable = true;
+		#systemd.enable = true;
+		settings = {
+			theme = "IC Green PPL";
+			background = "#000000";
+			background-opacity = 0.0;
+			font-size = 14;
+		};
+	};
+	programs.helix = {
+		enable = true;
+		settings = {
+			editor = {
+				cursor-shape = {
+					insert = "bar";
+					normal = "block";
+					select = "underline";
+				};
+				lsp = {
+					display-messages = true;
+				};
+			};
+			theme = "base16_transparent";
+		};
+	};
+	programs.zsh = {
+		enable = true;
+		shellAliases = {
+			nrs = "sudo nixos-rebuild switch --flake ~/.nix-dots#nil";
+			nixconf = "hx ~/.nix-dots/configuration.nix";
+			nrb = "sudo nixos-rebuild boot --flake ~/.nix-dots#nil";
+			hmconf = "hx ~/.nix-dots/home.nix";
+			flkconf = "hx ~/nix-dots/flake.nix";
+		};
+		fastSyntaxHighlighting.enable = true;
+		autosuggestion.enable = true;
+	};
+	wayland.windowManager.niri = {
+		enable = true;
+		#systemd.enable = true;
+		settings = {
+			blur = {
+				on = {};
+				passes = 3;
+				noise = 0;
+				saturation = 1.0;	
+			};
+			
+			prefer-no-csd = {};
+			hotkey-overlay = {
+				skip-at-startup = {};
+			};
+			spawn-at-startup = ["waybar"];
+			layout = {
+				focus-ring = {
+					off = {};
+				};
+				border = {
+					on = {};
+					width = 2;
+					active-color = "#ffffff";
+					inactive-color = "#4d4d4d";
+				};
+			};
+			cursor = {
+				xcursor-theme = "macOS";
+				xcursor-size = 28;
+			};
+
+			input={
+				focus-follows-mouse = {};
+				touchpad = {
+					tap = {};
+					natural-scroll = {};
+				};
+				keyboard = {
+					xkb = {
+						layout = "us, ru";
+						options = "grp:win_space_toggle";
+					};
+					numlock = {};
+				};
+			};
+			
+			binds = {
+				"Mod+Return".spawn = ["ghostty" "+new-window"];
+				"Mod+q".close-window = {};
+				"Mod+b".spawn = ["zen"];
+				"Mod+e".spawn-sh = ["ghostty -e yazi"];
+				"Mod+slash".spawn = ["fuzzel"];
+				
+				"Mod+Left".focus-column-left = {};
+				"Mod+Right".focus-column-right = {};
+				"Mod+Up".focus-window-up = {};
+				"Mod+Down".focus-window-down = {};
+
+				"Mod+Shift+Left".move-column-left = {};
+				"Mod+Shift+Right".move-column-right = {};
+				"Mod+Shift+Down".move-window-down = {};
+				"Mod+Shift+Up".move-window-up = {};
+
+				"Mod+1".focus-workspace = 1;
+				"Mod+2".focus-workspace = 2;
+				"Mod+3".focus-workspace = 3;
+				"Mod+4".focus-workspace = 4;
+				"Mod+5".focus-workspace = 5;
+				"Mod+6".focus-workspace = 6;
+				"Mod+7".focus-workspace = 7;
+				"Mod+8".focus-workspace = 8;
+				"Mod+9".focus-workspace = 9;
+				"Mod+0".focus-workspace = 10;
+
+				"Mod+F".maximize-column = {};
+				"Mod+R".switch-preset-column-width = {};
+				"Mod+BracketLeft".consume-or-expel-window-left = {};
+				"Mod+BracketRight".consume-or-expel-window-right = {};
+				"Mod+o".toggle-overview = {};
+				"Mod+Shift+f".fullscreen-window = {};
+				"Mod+d".maximize-window-to-edges = {};
+				"Mod+v".toggle-window-floating = {};
+			};
+			window-rule._children = [
+				{ draw-border-with-background = false;}
+				{ background-effect = {blur = true;};}
+			];
+			layer-rule._children = [
+				{background-effect.blur = true;}
+			];
+		};
+	};
+}
