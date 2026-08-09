@@ -56,6 +56,13 @@
         "ggpht.com"
       ];
   };
+  environment.variables = {
+    EDITOR = "hx";
+    VISUAL = "hx";
+    AWWW_TRANSITION = "grow";
+    AWWW_TRANSITION_POS = "0, 0.5";
+    AWWW_TRANSITION_FPS = 144;
+  };
   services.xserver.videoDrivers = ["nvidia"];
   security.pam.services.hyprlock = {};
   hardware.nvidia = {
