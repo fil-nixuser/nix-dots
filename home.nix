@@ -15,6 +15,8 @@
 	};
 	home.packages = with pkgs; [
 		wev
+		element-desktop
+		qimgv
 	];
 	home.file.".config/scripts/power-menu.sh" = {
 		text = ''
@@ -35,38 +37,6 @@
 		userName = "fil-nixuser";
 		userEmail = "fil228009ok@gmail.com";
 	};
-	  services.zapret = {
-    enable = true;
-    params = [
-      "--dpi-desync=fake,split2"
-      "--dpi-desync-ttl=1"
-      "--dpi-desync-autottl=2"
-      "--dpi-desync-fooling=md5sig"
-      "--dpi-desync-repeats=6"
-    ];
-    udpSupport = true;
-    udpPorts = [ "443" "50000:65535" ];
-    udpParams = [
-      "--dpi-desync=fake"
-      "--dpi-desync-repeats=6"
-      "--dpi-desync-any-protocol=1"
-    ];
-    whitelist = [
-      "youtube.com"
-      "googlevideo.com"
-      "ytimg.com"
-      "youtu.be"
-      "nhacmp3cdn.com"
-      "discord.com"
-      "discordapp.com"
-      "discordapp.net"
-      "discord.gg"
-      "discord.media"
-      "discordcdn.com"
-      "discord-attachments-uploads-prd.storage.googleapis.com"
-    ];
-  };
-
 	programs.hyprlock = {
 		enable = true;
 		settings = {
@@ -303,10 +273,10 @@
 		enable = true;
 		#systemd.enable = true;
 		settings = {
-			theme = "IC Green PPL";
+			theme = "Nord Wave";
 			background = "#000000";
 			background-opacity = 0.0;
-			font-size = 14;
+			font-size = 11;
 		};
 	};
 	programs.helix = {
