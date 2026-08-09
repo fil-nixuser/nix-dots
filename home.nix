@@ -16,13 +16,91 @@
 	home.packages = with pkgs; [
 		wev
 	];
+	home.file.".config/scripts/power-menu.sh" = {
+		text = ''
+				#!/usr/bin/env bash
+				option=$(printf "Lock\nSuspend\nReboot\nShutdown" | fuzzel --dmenu)
+				case $option in
+					lock) hyprlock ;;
+					suspend) systemctl suspend ;;
+					reboot) systemctl reboot ;;
+					shutdown) systemctl poweroff ;;
+				esac
+			'';
+		executable = true;
+	};
 	services.awww.enable = true;
 	programs.git = {
 		enable = true;
 		userName = "fil-nixuser";
 		userEmail = "fil228009ok@gmail.com";
 	};
+	  services.zapret = {
+    enable = true;
+    params = [
+      "--dpi-desync=fake,split2"
+      "--dpi-desync-ttl=1"
+      "--dpi-desync-autottl=2"
+      "--dpi-desync-fooling=md5sig"
+      "--dpi-desync-repeats=6"
+    ];
+    udpSupport = true;
+    udpPorts = [ "443" "50000:65535" ];
+    udpParams = [
+      "--dpi-desync=fake"
+      "--dpi-desync-repeats=6"
+      "--dpi-desync-any-protocol=1"
+    ];
+    whitelist = [
+      "youtube.com"
+      "googlevideo.com"
+      "ytimg.com"
+      "youtu.be"
+      "nhacmp3cdn.com"
+      "discord.com"
+      "discordapp.com"
+      "discordapp.net"
+      "discord.gg"
+      "discord.media"
+      "discordcdn.com"
+      "discord-attachments-uploads-prd.storage.googleapis.com"
+    ];
+  };
 
+	programs.hyprlock = {
+		enable = true;
+		settings = {
+			general = {
+				ignore_empty_input = true;
+			};
+			animations = {
+				enable = true;
+			};
+			background = [
+				{
+					path = "~/Pictures/wallpaper.jpg";
+					blur_passes = 3;
+					blur_size = 8;
+				}
+			];
+			input-field = [
+				{
+					size = "200, 50";
+					position = "0, -100";
+					dots_center = true;
+				}
+			];
+			label = [
+				{
+					text = "$TIME";
+					font_size = 90;
+					font_family = "JetBrains Nerd Font Mono";
+					halign = "center";
+					valign = "center";
+				}
+			];
+		};
+	};
 	programs.fuzzel = {
 		enable = true;
 		settings = {
@@ -270,9 +348,8 @@
 				saturation = 1.0;	
 			};			
 			prefer-no-csd = {};
-			hotkey-overlay = {
-				skip-at-startup = {};
-			};
+			hotkey-overlay.skip-at-startup = {};
+			screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
 			spawn-at-startup = ["waybar"];
 			layout = {
 				focus-ring = {
@@ -343,6 +420,9 @@
 				"Mod+Shift+f".fullscreen-window = {};
 				"Mod+d".maximize-window-to-edges = {};
 				"Mod+v".toggle-window-floating = {};
+
+				"Print".screenshot = {};
+				"Mod+Shift+s".screenshot-screen = {};
 			};
 			window-rule._children = [
 				{ draw-border-with-background = false;}
