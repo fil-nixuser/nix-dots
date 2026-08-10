@@ -17,6 +17,13 @@
 		wev
 		element-desktop
 		qimgv
+
+		nixd
+		alejandra
+
+		clang-tools
+		gnumake
+		clang
 	];
 	home.file.".config/scripts/power-menu.sh" = {
 		text = ''
@@ -49,8 +56,8 @@
 			background = [
 				{
 					path = "~/Pictures/wallpaper.jpg";
-					blur_passes = 3;
-					blur_size = 8;
+					blur_passes = 4;
+					blur_size = 10;
 				}
 			];
 			input-field = [

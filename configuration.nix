@@ -60,7 +60,7 @@
     EDITOR = "hx";
     VISUAL = "hx";
     AWWW_TRANSITION = "grow";
-    AWWW_TRANSITION_POS = "0, 0.5";
+    AWWW_TRANSITION_POS = "1, 0.5";
     AWWW_TRANSITION_FPS = 144;
   };
   services.xserver.videoDrivers = ["nvidia"];
@@ -129,7 +129,6 @@
      wget
      curl
      fastfetch
-     nil
      wl-clipboard
      inputs.fetch3d.packages.${pkgs.stdenv.hostPlatform.system}.default
      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
