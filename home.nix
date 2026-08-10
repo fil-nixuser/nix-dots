@@ -14,16 +14,18 @@
   	size = 24;
 	};
 	home.packages = with pkgs; [
-		wev
-		element-desktop
+		#useful things
+		wev 
 		qimgv
-
+		#nix lang
 		nixd
 		alejandra
-
+		#c`s shit
 		clang-tools
 		gnumake
 		clang
+		#messanger		
+		element-desktop
 	];
 	home.file.".config/scripts/power-menu.sh" = {
 		text = ''
@@ -288,6 +290,21 @@
 	};
 	programs.helix = {
 		enable = true;
+		languages = {
+			language = [
+				{
+					name = "nix";
+					formatter = {
+						command = "alejandra";
+					};
+				}
+				{
+					name = "c";
+					formatter.command = "clang-format";
+				}
+			];
+			
+		};
 		settings = {
 			editor = {
 				cursor-shape = {
