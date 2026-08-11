@@ -18,6 +18,9 @@
     openInternalFirewall = true;
     port = 51821;
   };
+  systemd.services.netbird-wt0 = {
+    serviceConfig = { TimeoutStopSec = 5; };
+  };
   services.gnome.gnome-keyring.enable = true;
     services.zapret = {
     enable = true;

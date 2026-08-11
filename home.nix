@@ -17,6 +17,8 @@
 		#useful things
 		wev 
 		qimgv
+		brightnessctl
+		playerctl
 		#nix lang
 		nixd
 		alejandra
@@ -24,18 +26,19 @@
 		clang-tools
 		gnumake
 		clang
+		lldb
 		#messanger		
 		element-desktop
 	];
 	home.file.".config/scripts/power-menu.sh" = {
 		text = ''
 				#!/usr/bin/env bash
-				option=$(printf "Lock\nSuspend\nReboot\nShutdown" | fuzzel --dmenu)
+				option=$(printf "lock\nsuspend\nreboot\nshutdown" | fuzzel --dmenu)
 				case $option in
-					lock) hyprlock ;;
-					suspend) systemctl suspend ;;
-					reboot) systemctl reboot ;;
-					shutdown) systemctl poweroff ;;
+					lock) /etc/profiles/per-user/fil/bin/hyprlock ;;
+					suspend) /run/current-system/sw/bin/systemctl suspend ;;
+					reboot) /run/current-system/sw/bin/systemctl reboot ;;
+					shutdown) /run/current-system/sw/bin/systemctl poweroff ;;
 				esac
 			'';
 		executable = true;
@@ -151,6 +154,7 @@
 					"backlight"
 					"battery"
 					"network"
+					"custom/power"
 				];
 				"wireplumber" = {
 					scroll-step = 5;
@@ -170,6 +174,10 @@
 				"custom/icon" = {
 					format = "";
 					on-click = "fuzzel";
+				};
+				"custom/power" = {
+					format = "󰐥";
+					on-click = "~/.config/scripts/power-menu.sh";
 				};
 				battery = {
 					states = {
@@ -269,11 +277,15 @@
 					margin: 5px;
 				}
 				#custom-icon {
-					padding-right: 8px;
+					padding-right: 4px;
 					padding-left: 8px;
 				}
 				#network {
 					padding-right: 16px;
+				}
+				#custom-power {
+					padding-right: 8px;
+					padding-left: 4px;
 				}
 			";
 	};
@@ -384,6 +396,7 @@
 				"Mod+b".spawn = ["zen"];
 				"Mod+e".spawn-sh = ["ghostty -e yazi"];
 				"Mod+slash".spawn = ["fuzzel"];
+				"Mod+period".spawn = ["fuzzel"];
 				
 				"Mod+Left".focus-column-left = {};
 				"Mod+Right".focus-column-right = {};
@@ -417,6 +430,16 @@
 
 				"Print".screenshot = {};
 				"Mod+Shift+s".screenshot-screen = {};
+
+				"XF86AudioRaiseVolume".spawn-sh = ["wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"];
+				"XF86AudioLowerVolume".spawn-sh = ["wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05- -l 1.0"];
+				"XF86AudioMute".spawn-sh = ["wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"];
+				"XF86MonBrightnessDown".spawn-sh = ["brightnessctl set 5%-"];
+				"XF86MonBrightnessUp".spawn-sh = ["brightnessctl set 5%+"];
+				"XF86AudioPlay".spawn-sh = ["playerctl play-pause"];
+				"XF86AudioNext".spawn-sh = ["pllayerctl next"];
+				"XF86AudioPrev".spawn-sh = ["pllayerctl previous"];
+				"Mod+Shift+L".spawn-sh = ["~/.config/scripts/power-menu.sh"];
 			};
 			window-rule._children = [
 				{ draw-border-with-background = false;}
