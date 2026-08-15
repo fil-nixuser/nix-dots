@@ -19,6 +19,8 @@
 		qimgv
 		brightnessctl
 		playerctl
+		usbutils
+		libreoffice-fresh
 		#nix lang
 		nixd
 		alejandra
@@ -29,6 +31,9 @@
 		lldb
 		#messanger		
 		element-desktop
+		#wine
+		winetricks
+		wine
 	];
 	home.file.".config/scripts/power-menu.sh" = {
 		text = ''
@@ -48,6 +53,33 @@
 		enable = true;
 		userName = "fil-nixuser";
 		userEmail = "fil228009ok@gmail.com";
+	};
+	services.swayosd = {
+		enable = true;
+	};
+	programs.fastfetch = {
+		enable = true;
+		settings = {
+			logo = {
+				source = "~/Downloads/nix-snowflake-colours.png";
+				width = 25;
+			};
+			display = {
+				separator = " ";
+			};
+			modules = [
+				"break"
+				"title"
+				"break"
+				"os"
+				"kernel"
+				"cpu"
+				"memory"
+				"swap"
+				"disk"
+				"uptime"
+			];
+		};
 	};
 	programs.hyprlock = {
 		enable = true;
@@ -431,11 +463,11 @@
 				"Print".screenshot = {};
 				"Mod+Shift+s".screenshot-screen = {};
 
-				"XF86AudioRaiseVolume".spawn-sh = ["wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"];
-				"XF86AudioLowerVolume".spawn-sh = ["wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05- -l 1.0"];
-				"XF86AudioMute".spawn-sh = ["wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"];
-				"XF86MonBrightnessDown".spawn-sh = ["brightnessctl set 5%-"];
-				"XF86MonBrightnessUp".spawn-sh = ["brightnessctl set 5%+"];
+				"XF86AudioRaiseVolume".spawn-sh = ["swayosd-client --output-volume +2"];
+				"XF86AudioLowerVolume".spawn-sh = ["swayosd-client --output-volume -2"];
+				"XF86AudioMute".spawn-sh = ["swayosd-client --output-volume mute-toggle"];
+				"XF86MonBrightnessDown".spawn-sh = ["swayosd-client --brightness -5"];
+				"XF86MonBrightnessUp".spawn-sh = ["swayosd-client --brightness +5"];
 				"XF86AudioPlay".spawn-sh = ["playerctl play-pause"];
 				"XF86AudioNext".spawn-sh = ["pllayerctl next"];
 				"XF86AudioPrev".spawn-sh = ["pllayerctl previous"];

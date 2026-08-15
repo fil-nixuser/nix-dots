@@ -112,11 +112,14 @@
   services.displayManager.ly.enable = true;
 
    services.libinput.enable = true;
+   services.udev.extraRules = ''
+     KERNEL=="hidraw*", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="010c", MODE="0666", GROUP="plugdev"
+     '';
 
    users.users.fil = {
      isNormalUser = true;
      shell = pkgs.zsh;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "plugdev" ]; # Enable ‘sudo’ for the user.
      packages = with pkgs; [
        tree
      ];
