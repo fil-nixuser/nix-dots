@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, inputs, ...}:
 
 {
 	home.username = "fil";
@@ -20,6 +20,7 @@
 		brightnessctl
 		playerctl
 		usbutils
+		unzip
 		libreoffice-fresh
 		#nix lang
 		nixd
@@ -57,6 +58,7 @@
 	services.swayosd = {
 		enable = true;
 	};
+
 	programs.fastfetch = {
 		enable = true;
 		settings = {
@@ -171,8 +173,8 @@
 		settings = {
 			mainBar = {
 				layer = "top";
-				position = "bottom";
-				height = 30;
+				position = "left";
+				width = 18;
 
 				modules-left = [
 					"custom/icon"
@@ -235,7 +237,7 @@
 					];
 				};
 				clock = {
-					format = "{:%H:%M}";
+					format = "{:%H\n%M}";
 				};
 				network = {
 					format-wifi = "󰤨";
@@ -249,24 +251,21 @@
 		style = "
 				* {
 					font-family: JetBrains Nerd Font Mono;
-					font-size: 14px;
+					font-size: 12px;
 					color: #ffffff;
 				}
 				window#waybar {
 					background: transparent;
 					border-radius: 0px;
-					margin:0px;
-					padding: 0px 0px;
 				}
 				#workspaces button {
-					padding: 0px 1px;
-					margin: 3px 2px;
+					margin: 4px 0px;
 					border-radius: 0px;
 					background: transparent;
 					color: #ffffff;
 				}
 				#workspaces button.active {
-					border-top: 2px solid #ffffff;
+					border-right: 2px solid #ffffff;
 				}
 				#workspaces button.hover {
 					background: #1e1e1e;
@@ -274,20 +273,15 @@
 				#workspaces button.urgent {
 					background: #5b4950;
 				}
-				#mpris {
-					padding: 0 4px;
-				}
 				#battery{
-					margin: 8px;
+					margin: 4px 0px;
 				}
 				#battery.warning {
 			    background: rgba(246, 193, 119, 0.15);
-  			  padding: 1px 4px;
 				}
 
 				#battery.critical {
     			background: rgba(235, 111, 146, 0.18);
-    			padding: 1px 4px;
 				}
 
 				#wireplumber.muted {
@@ -303,28 +297,33 @@
     			font-size: 11px;
 				}
 				#wireplumber {
-					margin: 5px;
+					margin: 4px 0px;
 				}
 				#backlight {
-					margin: 5px;
+					margin: 4px 0px;
 				}
 				#custom-icon {
-					padding-right: 4px;
-					padding-left: 8px;
+					padding-bottom: 4px;
+					padding-top: 6px;
 				}
 				#network {
-					padding-right: 16px;
+					margin-bottom: 6px;
+					margin-top: 6px;
+					font-size: 16px;
 				}
 				#custom-power {
-					padding-right: 8px;
-					padding-left: 4px;
+					padding-bottom: 6px;
+					padding-top: 4px;
+					font-size: 16px;
+				}
+				#custom-icon {
+					font-size: 16px;
 				}
 			";
 	};
 	
 	programs.ghostty = {
 		enable = true;
-		#systemd.enable = true;
 		settings = {
 			theme = "Nord Wave";
 			background = "#000000";
@@ -377,7 +376,6 @@
 	};
 	wayland.windowManager.niri = {
 		enable = true;
-		#systemd.enable = true;
 		settings = {
 			blur = {
 				on = {};
