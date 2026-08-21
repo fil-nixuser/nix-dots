@@ -174,7 +174,7 @@
 			mainBar = {
 				layer = "top";
 				position = "left";
-				width = 18;
+				width = 12;
 
 				modules-left = [
 					"custom/icon"
@@ -192,8 +192,11 @@
 				];
 				"wireplumber" = {
 					scroll-step = 5;
-					format = " {icon} {volume}%";
-					format-muted = "󰝟 muted";
+					format = "{icon}";
+					format-muted = "󰝟";
+					tooltip = true;
+					tooltip-format = "{volume}%";
+					tooltip-format-muted = "muted";
 					format-icons = {
 						default = ["󰕿" "󰖀" "󰕾"];
 						headphones = "󰋋";
@@ -202,7 +205,8 @@
 				};
 				backlight = {
 					device = "intel-backlight";
-					format = "{icon} {percent}%";
+					format = "{icon}";
+					tooltip-format = "{percent}%";
 					format-icons = ["󰃞" "󰃟" "󰃠"];
 				};
 				"custom/icon" = {
@@ -218,10 +222,14 @@
 						warning = 30;
 						critical = 15;
 					};
-					format = "{icon} {capacity}%";
-					format-charging = "󰂄 {capacity}%";
-					format-plugged = "󱟦 {capacity}%";
-					format-full = "󰁹 {capacity}%";
+					format = " {icon}";
+					format-charging = "󰂄";
+					format-plugged = "󱟦";
+					format-full = "󰁹";
+					tooltip-format = "{capacity}%";
+					tooltip-format-charging = "charging {capacity}%";
+					tooltip-format-plugged = "plugged {capacity}%";
+					tooltip-format-full = "full";
 					format-icons = [
 						"󰂎"
 						"󰁺"
@@ -251,7 +259,7 @@
 		style = "
 				* {
 					font-family: JetBrains Nerd Font Mono;
-					font-size: 12px;
+					font-size: 14px;
 					color: #ffffff;
 				}
 				window#waybar {
@@ -263,6 +271,7 @@
 					border-radius: 0px;
 					background: transparent;
 					color: #ffffff;
+					border: none;
 				}
 				#workspaces button.active {
 					border-right: 2px solid #ffffff;
@@ -290,6 +299,7 @@
 				tooltip {
 			    background: #111111;
     			border: 1px solid #333333;
+    			margin-left: 20px;
 				}
 
 				tooltip label {
@@ -298,18 +308,23 @@
 				}
 				#wireplumber {
 					margin: 4px 0px;
+					font-size: 16px;
 				}
 				#backlight {
-					margin: 4px 0px;
+					margin-top: 4px;
+					margin-bottom: 4px;
+					margin-right: 4px;
 				}
 				#custom-icon {
 					padding-bottom: 4px;
 					padding-top: 6px;
+					font-size: 16px;
 				}
 				#network {
 					margin-bottom: 6px;
 					margin-top: 6px;
 					font-size: 16px;
+					margin-right: 4px;
 				}
 				#custom-power {
 					padding-bottom: 6px;
@@ -317,7 +332,7 @@
 					font-size: 16px;
 				}
 				#custom-icon {
-					font-size: 16px;
+					margin-right:2px;
 				}
 			";
 	};
