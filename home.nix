@@ -14,7 +14,7 @@
   	size = 24;
 	};
 	home.packages = with pkgs; [
-		#useful things
+		#useful stuff
 		wev 
 		qimgv
 		brightnessctl
@@ -22,6 +22,10 @@
 		usbutils
 		unzip
 		libreoffice-fresh
+		gparted
+		ventoy-full
+		udisks2
+		ytmdesktop
 		#nix lang
 		nixd
 		alejandra
@@ -35,6 +39,13 @@
 		#wine
 		winetricks
 		wine
+		#small stuff
+		lsd
+		bat
+		ripgrep
+		fd
+		bottom
+		dysk
 	];
 	home.file.".config/scripts/power-menu.sh" = {
 		text = ''
@@ -58,7 +69,18 @@
 	services.swayosd = {
 		enable = true;
 	};
-
+	programs.fzf = {
+		enable = true;
+		enableZshIntegration = true;
+	};
+	programs.starship = {
+		enable = true;
+		enableZshIntegration = true;
+	};
+	programs.zoxide = {
+		enable = true;
+		enableZshIntegration = true;
+	};
 	programs.fastfetch = {
 		enable = true;
 		settings = {
@@ -339,11 +361,22 @@
 	
 	programs.ghostty = {
 		enable = true;
+		enableZshIntegration = true;
 		settings = {
 			theme = "Nord Wave";
 			background = "#000000";
 			background-opacity = 0.0;
 			font-size = 11;
+			shell-integration-features = ["ssh-terminfo" "ssh-env" "sudo"];
+			keybind = [
+				"alt+e=new_split:auto"
+				"alt+q=close_surface"
+				"alt+arrow_left=goto_split:left"
+				"alt+arrow_right=goto_split:right"
+				"alt+arrow_up=goto_split:up"
+				"alt+arrow_down=goto_split:down"
+				"alt+/=start_search"
+				];
 		};
 	};
 	programs.helix = {
@@ -385,6 +418,10 @@
 			nrb = "sudo nixos-rebuild boot --flake ~/.nix-dots#nil";
 			hmconf = "hx ~/.nix-dots/home.nix";
 			flkconf = "hx ~/nix-dots/flake.nix";
+			ls = "lsd";
+			cat = "bat";
+			grep = "rg";
+			cd = "z";
 		};
 		fastSyntaxHighlighting.enable = true;
 		autosuggestion.enable = true;
@@ -476,8 +513,8 @@
 				"Print".screenshot = {};
 				"Mod+Shift+s".screenshot-screen = {};
 
-				"XF86AudioRaiseVolume".spawn-sh = ["swayosd-client --output-volume +2"];
-				"XF86AudioLowerVolume".spawn-sh = ["swayosd-client --output-volume -2"];
+				"XF86AudioRaiseVolume".spawn-sh = ["swayosd-client --output-volume +5"];
+				"XF86AudioLowerVolume".spawn-sh = ["swayosd-client --output-volume -5"];
 				"XF86AudioMute".spawn-sh = ["swayosd-client --output-volume mute-toggle"];
 				"XF86MonBrightnessDown".spawn-sh = ["swayosd-client --brightness -5"];
 				"XF86MonBrightnessUp".spawn-sh = ["swayosd-client --brightness +5"];

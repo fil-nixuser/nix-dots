@@ -185,6 +185,11 @@
   };
   services.xserver.videoDrivers = ["nvidia"];
   security.pam.services.hyprlock = {};
+  security.pki.certificateFiles = [
+    ./russian_trusted_root_ca_pem.crt
+    ./russian_trusted_sub_ca_pem.crt
+  ];
+  services.udisks2.enable = true;
   hardware.nvidia = {
     powerManagement.enable = false;
     powerManagement.finegrained = false;
@@ -249,15 +254,25 @@
      helix
      ghostty
      git
+     fzf
+     television
+     nix-search-tv
      wget
      curl
      fastfetch
      wl-clipboard
      android-tools
      git-repo
+     exfatprogs
+     exfat
+     ntfs3g
+     ntfsprogs
      inputs.fetch3d.packages.${pkgs.stdenv.hostPlatform.system}.default
      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
    ];
+   nixpkgs.config.permittedInsecurePackages = [
+                "ventoy-1.1.17"
+    ];
 	fonts.packages = with pkgs; [
 		nerd-fonts.jetbrains-mono
 	];
