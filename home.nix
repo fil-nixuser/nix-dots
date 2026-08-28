@@ -35,7 +35,7 @@
 		clang
 		lldb
 		#messanger		
-		element-desktop
+		cinny-desktop
 		#wine
 		winetricks
 		wine
@@ -428,13 +428,19 @@
 	};
 	wayland.windowManager.niri = {
 		enable = true;
+		extraConfig = ''
+				output "eDP-1" {
+					variable-refresh-rate
+					mode "1920x1080@144.000"
+				}
+			'';
 		settings = {
 			blur = {
 				on = {};
 				passes = 3;
 				noise = 0;
 				saturation = 1.0;	
-			};			
+			};
 			prefer-no-csd = {};
 			hotkey-overlay.skip-at-startup = {};
 			screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
