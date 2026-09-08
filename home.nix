@@ -1,5 +1,48 @@
 { config, pkgs, inputs, ...}:
+let
+	  yazi-picker = pkgs.writeShellScriptBin "yazi-picker" ''
+    set -e
 
+    multiple="$1"
+    directory="$2"
+    save="$3"
+    path="$4"
+    out="$5"
+
+    if [ -n "$path" ]; then
+      if [ -d "$path" ]; then
+        start_dir="$path"
+      else
+        start_dir=$(dirname "$path")
+      fi
+    else
+      start_dir="$HOME"
+    fi
+
+    if [ "$directory" = "1" ]; then
+      exec ${pkgs.yazi}/bin/yazi --chooser-file="$out" "$start_dir"
+    
+    elif [ "$save" = "1" ]; then
+      filename=$(basename "$path")
+      
+      tmp_dir_out=$(mktemp)
+      ${pkgs.yazi}/bin/yazi --chooser-file="$tmp_dir_out" "$start_dir"
+      
+      if [ -s "$tmp_dir_out" ]; then
+        selected=$(cat "$tmp_dir_out")
+        if [ -d "$selected" ]; then
+          echo "$selected/$filename" > "$out"
+        else
+          echo "$(dirname "$selected")/$filename" > "$out"
+        fi
+      fi
+      rm -f "$tmp_dir_out"
+
+    else
+      exec ${pkgs.yazi}/bin/yazi --chooser-file="$out" "$start_dir"
+    fi
+  '';
+in
 {
 	home.username = "fil";
 	home.homeDirectory = "/home/fil";
@@ -21,7 +64,7 @@
 		playerctl
 		usbutils
 		unzip
-		libreoffice-fresh
+		libreoffice-stable
 		gparted
 		ventoy-full
 		udisks2
@@ -34,8 +77,12 @@
 		gnumake
 		clang
 		lldb
-		#messanger		
-		cinny-desktop
+		#quickshell stuff
+		qt6.qtdeclarative
+		noctalia
+		#messanger
+		mumble
+		element-desktop
 		#wine
 		winetricks
 		wine
@@ -46,6 +93,7 @@
 		fd
 		bottom
 		dysk
+		yazi-picker
 	];
 	home.file.".config/scripts/power-menu.sh" = {
 		text = ''
@@ -63,11 +111,12 @@
 	services.awww.enable = true;
 	programs.git = {
 		enable = true;
-		userName = "fil-nixuser";
-		userEmail = "fil228009ok@gmail.com";
-	};
-	services.swayosd = {
-		enable = true;
+		settings = {
+			user = {
+				name = "fil-nixuser";
+				email = "fil228009ok@gmail.com";
+			};			
+		};
 	};
 	programs.fzf = {
 		enable = true;
@@ -92,16 +141,71 @@
 				separator = " ";
 			};
 			modules = [
-				"break"
-				"title"
-				"break"
-				"os"
-				"kernel"
-				"cpu"
-				"memory"
-				"swap"
-				"disk"
-				"uptime"
+				{
+					key = "╭───────────╮";
+					type = "custom";
+				}
+				{
+					key = "│  user    │";
+					type = "title";
+					format = "{user-name}";
+				}
+				{
+					key = "│ 󰇅 hname   │";
+					type = "title";
+					format = "{host-name}";
+				}
+				{
+					key = "│ 󰅐 uptime  │";
+					type = "uptime";
+				}
+				{
+					key = "│  distro  │";
+					type = "os";
+				}
+				{
+					key = "│  kernel  │";
+					type = "kernel";
+				}
+				{
+					key = "│  wm      │";
+					type = "wm";
+				}
+				{
+					key = "│  term    │";
+					type = "terminal";
+				}
+				{
+					key = "│  shell   │";
+					type = "shell";
+				}
+				{
+					key = "│ 󰍛 cpu     │";
+					type = "cpu";
+					showPeCoreCount = true;
+				}
+				{
+					key = "│ 󰉉 disk    │";
+					type = "disk";
+					folders = "/";
+				}
+				{
+					key = "│  memory  │";
+					type = "memory";
+				}
+				{
+					key = "├───────────┤";
+					type = "custom";
+				}
+				{
+					key = "│  colors  │";
+					type = "colors";
+					symbol = "circle";
+				}
+				{
+					key = "╰───────────╯";
+					type = "custom";
+				}
 			];
 		};
 	};
@@ -191,7 +295,7 @@
 		};
 	};
 	programs.waybar = {
-		enable = true;
+		enable = false;
 		settings = {
 			mainBar = {
 				layer = "top";
@@ -420,12 +524,28 @@
 			flkconf = "hx ~/nix-dots/flake.nix";
 			ls = "lsd";
 			cat = "bat";
-			grep = "rg";
 			cd = "z";
+			ff = "fastfetch";
 		};
 		fastSyntaxHighlighting.enable = true;
 		autosuggestion.enable = true;
 	};
+	xdg.portal = {
+		enable = true;
+		extraPortals = [
+			pkgs.xdg-desktop-portal-termfilechooser
+		];
+		config = {
+			niri = {
+				"org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+				"default" = [ "gnome" ];
+			};
+		};
+	};
+	xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
+			[filechooser]
+			cmd = ${pkgs.ghostty}/bin/ghostty -e ${yazi-picker}/bin/yazi-picker
+		'';
 	wayland.windowManager.niri = {
 		enable = true;
 		extraConfig = ''
@@ -437,14 +557,14 @@
 		settings = {
 			blur = {
 				on = {};
-				passes = 3;
+				passes = 4;
 				noise = 0;
-				saturation = 1.0;	
+				saturation = 0.9;	
 			};
 			prefer-no-csd = {};
 			hotkey-overlay.skip-at-startup = {};
 			screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
-			spawn-at-startup = ["waybar"];
+			spawn-at-startup = ["noctalia"];
 			layout = {
 				focus-ring = {
 					off = {};
@@ -483,18 +603,18 @@
 				"Mod+q".close-window = {};
 				"Mod+b".spawn = ["zen"];
 				"Mod+e".spawn-sh = ["ghostty -e yazi"];
-				"Mod+slash".spawn = ["fuzzel"];
-				"Mod+period".spawn = ["fuzzel"];
+				"Mod+slash".spawn-sh = ["noctalia msg panel-toggle launcher"];
+				"Mod+period".spawn-sh = ["noctalia msg panel-toggle launcher"];
 				
 				"Mod+Left".focus-column-left = {};
 				"Mod+Right".focus-column-right = {};
-				"Mod+Up".focus-window-up = {};
-				"Mod+Down".focus-window-down = {};
+				"Mod+Up".focus-window-or-workspace-up = {};
+				"Mod+Down".focus-window-or-workspace-down = {};
 
 				"Mod+Shift+Left".move-column-left = {};
 				"Mod+Shift+Right".move-column-right = {};
-				"Mod+Shift+Down".move-window-down = {};
-				"Mod+Shift+Up".move-window-up = {};
+				"Mod+Shift+Down".move-window-down-or-to-workspace-down = {};
+				"Mod+Shift+Up".move-window-up-or-to-workspace-up = {};
 
 				"Mod+1".focus-workspace = 1;
 				"Mod+2".focus-workspace = 2;
@@ -507,6 +627,7 @@
 				"Mod+9".focus-workspace = 9;
 				"Mod+0".focus-workspace = 10;
 
+
 				"Mod+F".maximize-column = {};
 				"Mod+R".switch-preset-column-width = {};
 				"Mod+BracketLeft".consume-or-expel-window-left = {};
@@ -516,25 +637,32 @@
 				"Mod+d".maximize-window-to-edges = {};
 				"Mod+v".toggle-window-floating = {};
 
-				"Print".screenshot = {};
-				"Mod+Shift+s".screenshot-screen = {};
+				"Print".spawn-sh = ["noctalia msg screenshot-fullscreen"];
+				"Mod+Ctrl+S".spawn-sh = ["noctalia msg screenshot-fullscreen"];
+				"Mod+Shift+s".spawn-sh = ["noctalia msg screenshot-region"];
+				"Alt+Escape".spawn-sh = ["noctalia msg screenshot-region"];
 
-				"XF86AudioRaiseVolume".spawn-sh = ["swayosd-client --output-volume +5"];
-				"XF86AudioLowerVolume".spawn-sh = ["swayosd-client --output-volume -5"];
-				"XF86AudioMute".spawn-sh = ["swayosd-client --output-volume mute-toggle"];
-				"XF86MonBrightnessDown".spawn-sh = ["swayosd-client --brightness -5"];
-				"XF86MonBrightnessUp".spawn-sh = ["swayosd-client --brightness +5"];
+				"XF86AudioRaiseVolume".spawn-sh = ["wpctl set-volume @DEFAULT_AUDIO_SINK@ '0.05+'"];
+				"XF86AudioLowerVolume".spawn-sh = ["wpctl set-volume @DEFAULT_AUDIO_SINK@ '0.05-'"];
+				"XF86AudioMute".spawn-sh = ["wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"];
+				"XF86MonBrightnessDown".spawn-sh = ["brightnessctl --class=backlight set +10%"];
+				"XF86MonBrightnessUp".spawn-sh = ["brightnessctl --class=backlight set 10%-"];
 				"XF86AudioPlay".spawn-sh = ["playerctl play-pause"];
 				"XF86AudioNext".spawn-sh = ["pllayerctl next"];
 				"XF86AudioPrev".spawn-sh = ["pllayerctl previous"];
-				"Mod+Shift+L".spawn-sh = ["~/.config/scripts/power-menu.sh"];
+				"Mod+Shift+L".spawn-sh = ["noctalia msg panel-toggle session"];
+				"Mod+Shift+W".spawn-sh = ["noctalia msg panel-toggle wallpaper"];
+				"Mod+i".spawn-sh = ["noctalia msg settings-open"];
 			};
 			window-rule._children = [
 				{ draw-border-with-background = false;}
 				{ background-effect = {blur = true;};}
 			];
 			layer-rule._children = [
-				{background-effect.blur = true;}
+				{
+					background-effect.blur = true;
+					match._props = { namespace = "^noctalia-bar-default$";};
+				}
 			];
 		};
 	};

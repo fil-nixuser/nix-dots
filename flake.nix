@@ -5,9 +5,14 @@
 			url = "github:nix-community/home-manager/master";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		fetch3d = {
-			url = "github:areofyl/fetch";
+		quickshell = {
+			url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
 			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		qml-niri = {
+			url = "github:imiric/qml-niri/main";
+			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.quickshell.follows = "quickshell";
 		};
 		zen-browser = {
 			url = "github:youwen5/zen-browser-flake";

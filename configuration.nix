@@ -218,6 +218,15 @@
   nixpkgs.config.allowUnfree = true; 
 
   services.printing.enable = true;
+  services.printing.drivers = [
+    pkgs.hplipWithPlugin
+  ];
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
 
   services.resolved.enable = true;
 
@@ -265,7 +274,7 @@
      exfatprogs
      ntfs3g
      ntfsprogs
-     inputs.fetch3d.packages.${pkgs.stdenv.hostPlatform.system}.default
+     inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
    ];
    nixpkgs.config.permittedInsecurePackages = [
