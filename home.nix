@@ -19,6 +19,7 @@
 		./modules/niri.nix
 		./modules/file-manager.nix
 		./modules/git.nix
+		./modules/services.nix
 	];
 
 	#packages
@@ -62,6 +63,4 @@
 		bottom
 		dysk
 	];
-
-	services.awww.enable = true;
 }

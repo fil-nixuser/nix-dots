@@ -214,9 +214,6 @@
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal" ];
   # Set your time zone.
   time.timeZone = "Asia/Yekaterinburg";
-
-  nixpkgs.config.allowUnfree = true; 
-
   services.printing.enable = true;
   services.printing.drivers = [
     pkgs.hplipWithPlugin
@@ -226,23 +223,17 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-
-
   services.resolved.enable = true;
-
   networking.nameservers = ["111.88.96.50" "111.88.96.51"];
-
    services.pipewire = {
      enable = true;
      pulse.enable = true;
    };
   services.displayManager.ly.enable = true;
-
    services.libinput.enable = true;
    services.udev.extraRules = ''
      KERNEL=="hidraw*", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="010c", MODE="0666", GROUP="plugdev"
      '';
-
    users.users.fil = {
      isNormalUser = true;
      shell = pkgs.zsh;
@@ -289,14 +280,9 @@
    	enable = true;
    	enableSSHSupport = true;
  	};
+ 	nixpkgs.config.allowUnfree = true;
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-	
-
   system.stateVersion = "26.05"; # Did you read the comment? yeah, bro. i totally read that comment
 
 }
