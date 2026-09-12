@@ -257,6 +257,7 @@
   programs.steam.enable = true;
   programs.steam.extraCompatPackages = with pkgs; [
     proton-ge-bin
+    steamtinkerlaunch
   ];  
    environment.systemPackages = with pkgs; [
      helix

@@ -1,48 +1,5 @@
 { config, pkgs, inputs, ...}:
-let
-	  yazi-picker = pkgs.writeShellScriptBin "yazi-picker" ''
-    set -e
 
-    multiple="$1"
-    directory="$2"
-    save="$3"
-    path="$4"
-    out="$5"
-
-    if [ -n "$path" ]; then
-      if [ -d "$path" ]; then
-        start_dir="$path"
-      else
-        start_dir=$(dirname "$path")
-      fi
-    else
-      start_dir="$HOME"
-    fi
-
-    if [ "$directory" = "1" ]; then
-      exec ${pkgs.yazi}/bin/yazi --chooser-file="$out" "$start_dir"
-    
-    elif [ "$save" = "1" ]; then
-      filename=$(basename "$path")
-      
-      tmp_dir_out=$(mktemp)
-      ${pkgs.yazi}/bin/yazi --chooser-file="$tmp_dir_out" "$start_dir"
-      
-      if [ -s "$tmp_dir_out" ]; then
-        selected=$(cat "$tmp_dir_out")
-        if [ -d "$selected" ]; then
-          echo "$selected/$filename" > "$out"
-        else
-          echo "$(dirname "$selected")/$filename" > "$out"
-        fi
-      fi
-      rm -f "$tmp_dir_out"
-
-    else
-      exec ${pkgs.yazi}/bin/yazi --chooser-file="$out" "$start_dir"
-    fi
-  '';
-in
 {
 	home.username = "fil";
 	home.homeDirectory = "/home/fil";
@@ -69,6 +26,8 @@ in
 		ventoy-full
 		udisks2
 		ytmdesktop
+		qbittorrent
+		gale
 		#nix lang
 		nixd
 		alejandra
@@ -93,18 +52,22 @@ in
 		fd
 		bottom
 		dysk
-		yazi-picker
 	];
-	home.file.".config/scripts/power-menu.sh" = {
+	home.file.".config/fastfetch/ascii.txt" = {
 		text = ''
-				#!/usr/bin/env bash
-				option=$(printf "lock\nsuspend\nreboot\nshutdown" | fuzzel --dmenu)
-				case $option in
-					lock) /etc/profiles/per-user/fil/bin/hyprlock ;;
-					suspend) /run/current-system/sw/bin/systemctl suspend ;;
-					reboot) /run/current-system/sw/bin/systemctl reboot ;;
-					shutdown) /run/current-system/sw/bin/systemctl poweroff ;;
-				esac
+                __    __ 
+         /¯\    \  \ /  ;
+         \  \    \  v  /  
+      /¯¯¯   ¯¯¯¯\\   /  /\
+     ’————————————·\  \ /  ;
+          /¯¯;      \ //  /_
+    _____/  /        ‘/     \
+    \      /,        /  /¯¯¯¯
+     ¯¯/  // \      /__/     
+      .  / \  \·————————————.
+       \/  /   \\_____   ___/
+          /  ,  \     \  \   
+          \_/ \__\     \_/   
 			'';
 		executable = true;
 	};
@@ -134,8 +97,7 @@ in
 		enable = true;
 		settings = {
 			logo = {
-				source = "~/Downloads/nix-snowflake-colours.png";
-				width = 25;
+				source = "~/.config/fastfetch/ascii.txt";
 			};
 			display = {
 				separator = " ";
@@ -183,6 +145,7 @@ in
 					key = "│ 󰍛 cpu     │";
 					type = "cpu";
 					showPeCoreCount = true;
+					format = "{name}";
 				}
 				{
 					key = "│ 󰉉 disk    │";
@@ -530,22 +493,6 @@ in
 		fastSyntaxHighlighting.enable = true;
 		autosuggestion.enable = true;
 	};
-	xdg.portal = {
-		enable = true;
-		extraPortals = [
-			pkgs.xdg-desktop-portal-termfilechooser
-		];
-		config = {
-			niri = {
-				"org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
-				"default" = [ "gnome" ];
-			};
-		};
-	};
-	xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
-			[filechooser]
-			cmd = ${pkgs.ghostty}/bin/ghostty -e ${yazi-picker}/bin/yazi-picker
-		'';
 	wayland.windowManager.niri = {
 		enable = true;
 		extraConfig = ''
@@ -558,7 +505,7 @@ in
 			blur = {
 				on = {};
 				passes = 4;
-				noise = 0;
+				noise = 0.01;
 				saturation = 0.9;	
 			};
 			prefer-no-csd = {};
@@ -657,6 +604,10 @@ in
 			window-rule._children = [
 				{ draw-border-with-background = false;}
 				{ background-effect = {blur = true;};}
+				{
+					geometry-corner-radius = 12;
+					clip-to-geometry = true;
+				}
 			];
 			layer-rule._children = [
 				{
