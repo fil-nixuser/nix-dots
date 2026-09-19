@@ -35,9 +35,10 @@
 		gparted
 		ventoy-full
 		udisks2
-		ytmdesktop
+		feishin
 		qbittorrent
 		gale
+		nextcloud34
 		#nix lang
 		nixd
 		alejandra

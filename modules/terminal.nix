@@ -60,6 +60,7 @@
 	#shell
 	programs.zsh = {
 		enable = true;
+		initContent = "fastfetch";
 		shellAliases = {
 			nrs = "sudo nixos-rebuild switch --flake ~/.nix-dots#nil";
 			nixconf = "hx ~/.nix-dots/configuration.nix";

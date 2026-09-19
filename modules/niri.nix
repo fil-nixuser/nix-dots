@@ -38,8 +38,7 @@
 				xcursor-theme = "macOS";
 				xcursor-size = 28;
 			};
-
-			input={
+			input = {
 				focus-follows-mouse = {};
 				touchpad = {
 					tap = {};
@@ -48,7 +47,7 @@
 				keyboard = {
 					xkb = {
 						layout = "us, ru";
-						options = "grp:win_space_toggle";
+						options = "grp:win_space_toggle, caps:escape";
 					};
 					numlock = {};
 				};
