@@ -18,6 +18,7 @@
 			url = "github:youwen5/zen-browser-flake";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		blender-cuda.url = "github:adithyagenie/blender-cuda-nixos";
 	};
 	outputs = { self, nixpkgs, home-manager, ...}@inputs: {
 		nixosConfigurations.nil = nixpkgs.lib.nixosSystem {

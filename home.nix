@@ -20,6 +20,7 @@
 		./modules/file-manager.nix
 		./modules/git.nix
 		./modules/services.nix
+		./modules/noctalia.nix
 	];
 
 	#packages
@@ -38,7 +39,12 @@
 		feishin
 		qbittorrent
 		gale
-		nextcloud34
+		protontricks
+		obs-studio
+		nwg-look
+		qt6Packages.qt6ct
+		whitesur-icon-theme
+		kdePackages.qtstyleplugin-kvantum
 		#nix lang
 		nixd
 		alejandra
@@ -49,7 +55,6 @@
 		lldb
 		#quickshell stuff
 		qt6.qtdeclarative
-		noctalia
 		#messanger
 		mumble
 		element-desktop

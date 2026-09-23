@@ -4,6 +4,17 @@
   programs.yazi = {
 		enable = true;
 		enableZshIntegration = true;
+		theme = {
+			mgr.border_symbol = " ";
+		};
+		initLua = ''
+			Header:children_add(function()
+    if ya.target_family() == "unix" then
+        return ui.Span(ya.user_name() .. "@" .. ya.host_name() .. ":"):fg("green"):bold()
+    end
+    return ui.Span("")
+end, 500, Header.LEFT)
+			'';
 		plugins = {
 			smart-enter = pkgs.fetchFromGitHub {
 				owner = "yazi-rs";

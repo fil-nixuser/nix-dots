@@ -4,18 +4,47 @@
   #niri
 	wayland.windowManager.niri = {
 		enable = true;
-		extraConfig = ''
-				output "eDP-1" {
-					variable-refresh-rate
-					mode "1920x1080@144.000"
-				}
-			'';
 		settings = {
 			blur = {
 				on = {};
 				passes = 4;
 				noise = 0.01;
 				saturation = 0.9;	
+			};
+			animations = {
+				slowdown = 1.25;
+				_children = [
+					{
+						window-open._children = [
+							{ spring._props = { damping-ratio = 0.7; stiffness = 600; epsilon = 0.001; }; }
+						];
+					}
+					{
+						window-close._children = [
+							{ spring._props = { damping-ratio = 0.8; stiffness = 800; epsilon = 0.001; }; }
+						];
+					}
+					{
+						horizontal-view-movement._children = [
+							{ spring._props = { damping-ratio = 0.75; stiffness = 500; epsilon = 0.001; }; }
+						];
+					}
+					{
+						window-resize._children = [
+							{ spring._props = { damping-ratio = 0.8; stiffness = 600; epsilon = 0.001; }; }
+						];	
+					}
+					{
+						workspace-switch._children = [
+							{ spring._props = { damping-ratio = 0.8; stiffness = 500; epsilon = 0.001; }; }
+						];
+					}
+					{
+						config-notification-open-close._children = [
+							{ spring._props = { damping-ratio = 0.6; stiffness = 1000; epsilon = 0.001; }; }
+						];
+					}
+				];
 			};
 			prefer-no-csd = {};
 			hotkey-overlay.skip-at-startup = {};
@@ -34,7 +63,7 @@
 				always-center-single-column = {};
 				gaps = 4;
 			};
-			cursor = {
+		cursor = {
 				xcursor-theme = "macOS";
 				xcursor-size = 28;
 			};
@@ -100,11 +129,11 @@
 				"XF86AudioRaiseVolume".spawn-sh = ["wpctl set-volume @DEFAULT_AUDIO_SINK@ '0.05+'"];
 				"XF86AudioLowerVolume".spawn-sh = ["wpctl set-volume @DEFAULT_AUDIO_SINK@ '0.05-'"];
 				"XF86AudioMute".spawn-sh = ["wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"];
-				"XF86MonBrightnessDown".spawn-sh = ["brightnessctl --class=backlight set +10%"];
-				"XF86MonBrightnessUp".spawn-sh = ["brightnessctl --class=backlight set 10%-"];
+				"XF86MonBrightnessDown".spawn-sh = ["brightnessctl --class=backlight set 10%-"];
+				"XF86MonBrightnessUp".spawn-sh = ["brightnessctl --class=backlight set +10%"];
 				"XF86AudioPlay".spawn-sh = ["playerctl play-pause"];
-				"XF86AudioNext".spawn-sh = ["pllayerctl next"];
-				"XF86AudioPrev".spawn-sh = ["pllayerctl previous"];
+				"XF86AudioNext".spawn-sh = ["playerctl next"];
+				"XF86AudioPrev".spawn-sh = ["playerctl previous"];
 				"Mod+Shift+L".spawn-sh = ["noctalia msg panel-toggle session"];
 				"Mod+Shift+W".spawn-sh = ["noctalia msg panel-toggle wallpaper"];
 				"Mod+i".spawn-sh = ["noctalia msg settings-open"];
@@ -122,6 +151,9 @@
 					background-effect.blur = true;
 					match._props = { namespace = "^noctalia-bar-default$";};
 				}
+			];
+			_children = [
+				{ output = { _args = ["eDP-1"]; scale = 1.0; variable-refresh-rate = {}; mode = "1920x1080@144.000"; }; }
 			];
 		};
 	};

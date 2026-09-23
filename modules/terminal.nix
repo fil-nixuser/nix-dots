@@ -30,9 +30,8 @@
 			language = [
 				{
 					name = "nix";
-					formatter = {
-						command = "alejandra";
-					};
+					formatter.command = "alejandra";
+					language-servers = [ "nixd" ];
 				}
 				{
 					name = "c";
@@ -98,9 +97,11 @@
 		settings = {
 			logo = {
 				source = "~/.config/fastfetch/ascii.txt";
+				color = { "1" = "green"; };			
 			};
 			display = {
 				separator = " ";
+				color = "green";
 			};
 			modules = [
 				{

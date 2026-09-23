@@ -1,4 +1,3 @@
-
 { config, lib, pkgs, inputs, ... }:
 {
   imports =
@@ -24,10 +23,11 @@
   environment.variables = {
     EDITOR = "hx";
     VISUAL = "hx";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
   };
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal" ];
 
-  #pkgs
+  #pkgs  
   environment.systemPackages = with pkgs; [
      helix
      ghostty
@@ -44,12 +44,17 @@
      exfatprogs
      ntfs3g
      ntfsprogs
+     cachix
      inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+     inputs.blender-cuda.packages.${pkgs.stdenv.hostPlatform.system}.blender-with-cuda-unstable
    ];
    nixpkgs.config.permittedInsecurePackages = [
                 "ventoy-1.1.17"
     ];
+
+    programs.firefox.enable = true;
+  
   #font pkgs
 	fonts.packages = with pkgs; [
 		nerd-fonts.jetbrains-mono
