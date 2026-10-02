@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, inputs, ...}:
 
 {
 	home.username = "fil";
@@ -48,11 +48,21 @@
 		#nix lang
 		nixd
 		alejandra
-		#c`s shit
+		inputs.uwu-colors.packages.${pkgs.stdenv.hostPlatform.system}.default
+		#c
 		clang-tools
 		gnumake
 		clang
 		lldb
+		#python
+		python314
+		python314Packages.virtualenv
+		python314Packages.pip
+		python314Packages.numpy
+		python314Packages.onnx
+		python314Packages.onnxruntime
+		python314Packages.pillow
+		jq
 		#quickshell stuff
 		qt6.qtdeclarative
 		#messanger

@@ -6,7 +6,7 @@
 		enable = true;
 		enableZshIntegration = true;
 		settings = {
-			theme = "Nord Wave";
+			theme = "noctalia";
 			background = "#000000";
 			background-opacity = 0.0;
 			font-size = 11;
@@ -31,11 +31,12 @@
 				{
 					name = "nix";
 					formatter.command = "alejandra";
-					language-servers = [ "nixd" ];
+					language-servers = [ "nixd" "${pkgs.uwu-colors}/bin/uwu-colors" ];
 				}
 				{
 					name = "c";
 					formatter.command = "clang-format";
+					language-servers = [ "clangd" ];
 				}
 			];
 			
@@ -51,7 +52,7 @@
 					display-messages = true;
 				};
 			};
-			theme = "base16_transparent";
+			theme = "noctalia";
 		};
 	};
 
@@ -65,7 +66,7 @@
 			nixconf = "hx ~/.nix-dots/configuration.nix";
 			nrb = "sudo nixos-rebuild boot --flake ~/.nix-dots#nil";
 			hmconf = "hx ~/.nix-dots/home.nix";
-			flkconf = "hx ~/nix-dots/flake.nix";
+			flkconf = "hx ~/.nix-dots/flake.nix";
 			ls = "lsd";
 			cat = "bat";
 			cd = "z";
@@ -97,11 +98,11 @@
 		settings = {
 			logo = {
 				source = "~/.config/fastfetch/ascii.txt";
-				color = { "1" = "green"; };			
+				color = { "1" = "blue"; };			
 			};
 			display = {
 				separator = " ";
-				color = "green";
+				color = "blue";
 			};
 			modules = [
 				{

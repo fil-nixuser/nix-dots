@@ -10,7 +10,7 @@
 		initLua = ''
 			Header:children_add(function()
     if ya.target_family() == "unix" then
-        return ui.Span(ya.user_name() .. "@" .. ya.host_name() .. ":"):fg("green"):bold()
+        return ui.Span(ya.user_name() .. "@" .. ya.host_name() .. ":"):bold()
     end
     return ui.Span("")
 end, 500, Header.LEFT)

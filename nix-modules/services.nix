@@ -18,9 +18,7 @@
   
   services.resolved.enable = true;
   networking.nameservers = ["111.88.96.50" "111.88.96.51"];
-
   networking.networkmanager.enable = true;
-
   #other
    services.pipewire = {
      enable = true;
@@ -36,6 +34,12 @@
   services.udisks2.enable = true;
 
   security.pam.services.hyprlock = {};
+
+  services.power-profiles-daemon.enable = true;
+
+  services.supergfxd.enable = true;
+
+  services.asusd.enable = true;
 
   #printing
     services.printing.enable = true;

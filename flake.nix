@@ -18,7 +18,9 @@
 			url = "github:youwen5/zen-browser-flake";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		uwu-colors.url = "github:q60/uwu_colors";
 		blender-cuda.url = "github:adithyagenie/blender-cuda-nixos";
+		umbriel.url = "github:noctalia-dev/umbriel";
 	};
 	outputs = { self, nixpkgs, home-manager, ...}@inputs: {
 		nixosConfigurations.nil = nixpkgs.lib.nixosSystem {
@@ -35,10 +37,10 @@
 						useUserPackages = true;
 						users.fil = import ./home.nix;
 						backupFileExtension = "backup";
+						extraSpecialArgs = { inherit inputs; }; 
 					};
 				}
 			];
 		};
 	};
 }
-

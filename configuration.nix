@@ -33,8 +33,7 @@
      ghostty
      git
      fzf
-     television
-     nix-search-tv
+     xwayland
      wget
      curl
      fastfetch
@@ -45,6 +44,9 @@
      ntfs3g
      ntfsprogs
      cachix
+     libnotify
+     supergfxctl
+     asusctl
      inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
      inputs.blender-cuda.packages.${pkgs.stdenv.hostPlatform.system}.blender-with-cuda-unstable
@@ -52,9 +54,11 @@
    nixpkgs.config.permittedInsecurePackages = [
                 "ventoy-1.1.17"
     ];
-
-    programs.firefox.enable = true;
-  
+  nix.settings = {
+    substituters = [ "https://adithyagenie.cachix.org" ];
+    trusted-public-keys = [ "adithyagenie.cachix.org-1:h6BSMboeVfxyrULWuRQqAyweo4AJRATekb88xotfQwc=" ];
+  };
+    
   #font pkgs
 	fonts.packages = with pkgs; [
 		nerd-fonts.jetbrains-mono

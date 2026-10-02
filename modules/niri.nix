@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, config, ... }:
 
 {
   #niri
@@ -57,8 +57,8 @@
 				border = {
 					on = {};
 					width = 2;
-					active-color = "#ffffff";
-					inactive-color = "#4d4d4d";
+					active-color = "#a8a8a8";
+					inactive-color = "#2e2e2e";
 				};
 				always-center-single-column = {};
 				gaps = 4;
@@ -68,7 +68,6 @@
 				xcursor-size = 28;
 			};
 			input = {
-				focus-follows-mouse = {};
 				touchpad = {
 					tap = {};
 					natural-scroll = {};
