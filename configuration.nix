@@ -27,7 +27,7 @@
   };
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal" ];
 
-  #pkgs  
+  #pkgs
   environment.systemPackages = with pkgs; [
      helix
      ghostty
@@ -47,6 +47,10 @@
      libnotify
      supergfxctl
      asusctl
+     mpv
+     unrar
+     unzip
+     gnome-network-displays
      inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
      inputs.blender-cuda.packages.${pkgs.stdenv.hostPlatform.system}.blender-with-cuda-unstable

@@ -17,7 +17,6 @@
   services.openssh.enable = true;
   
   services.resolved.enable = true;
-  networking.nameservers = ["111.88.96.50" "111.88.96.51"];
   networking.networkmanager.enable = true;
   #other
    services.pipewire = {
@@ -25,7 +24,13 @@
      pulse.enable = true;
    };
 
-  services.displayManager.ly.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "doom";
+      animation_frame_delay = 50;
+    };
+  };
 
   services.gnome.gnome-keyring.enable = true;
 

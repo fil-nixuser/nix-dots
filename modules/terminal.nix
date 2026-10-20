@@ -43,6 +43,7 @@
 		};
 		settings = {
 			editor = {
+				line-number = "relative"; 
 				cursor-shape = {
 					insert = "bar";
 					normal = "block";
@@ -98,11 +99,11 @@
 		settings = {
 			logo = {
 				source = "~/.config/fastfetch/ascii.txt";
-				color = { "1" = "blue"; };			
+				color = { "1" = "white"; };			
 			};
 			display = {
 				separator = " ";
-				color = "blue";
+				color = "white";
 			};
 			modules = [
 				{

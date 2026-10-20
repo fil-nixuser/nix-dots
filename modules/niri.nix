@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   #niri
@@ -84,7 +84,7 @@
 			binds = {
 				"Mod+Return".spawn = ["ghostty" "+new-window"];
 				"Mod+q".close-window = {};
-				"Mod+b".spawn = ["zen"];
+				"Mod+b".spawn = ["zen-beta"];
 				"Mod+e".spawn-sh = ["ghostty -e yazi"];
 				"Mod+slash".spawn-sh = ["noctalia msg panel-toggle launcher"];
 				"Mod+period".spawn-sh = ["noctalia msg panel-toggle launcher"];
@@ -137,14 +137,7 @@
 				"Mod+Shift+W".spawn-sh = ["noctalia msg panel-toggle wallpaper"];
 				"Mod+i".spawn-sh = ["noctalia msg settings-open"];
 			};
-			window-rule._children = [
-				{ draw-border-with-background = false;}
-				{ background-effect = {blur = true;};}
-				{
-					geometry-corner-radius = 12;
-					clip-to-geometry = true;
-				}
-			];
+
 			layer-rule._children = [
 				{
 					background-effect.blur = true;
@@ -153,7 +146,52 @@
 			];
 			_children = [
 				{ output = { _args = ["eDP-1"]; scale = 1.0; variable-refresh-rate = {}; mode = "1920x1080@144.000"; }; }
+				{
+					window-rule._children = [
+						{
+							draw-border-with-background = false;
+						}
+						{
+							background-effect.blur = true;
+						}
+						{
+							geometry-corner-radius = 12;
+							clip-to-geometry = true;
+						}
+					];
+				}
+				{
+					window-rule._children = [
+						{
+							match._props = { app-id = "steam"; title = "notificationtoasts_";};
+							default-floating-position._props = { x=10; y=10; relative-to="bottom-right"; };
+							open-focused = false;
+						}
+					];
+				}
 			];
 		};
 	};
 }
+#
+				
+#window-rule._children = [
+#	{ draw-border-with-background = false;}
+#	{ background-effect = {blur = true;};}
+#	{
+#		geometry-corner-radius = 12;
+#		clip-to-geometry = true;
+#	}
+#	];
+#];			
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# 

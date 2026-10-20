@@ -21,6 +21,7 @@
 		./modules/git.nix
 		./modules/services.nix
 		./modules/noctalia.nix
+		./modules/zen.nix
 	];
 
 	#packages
@@ -45,6 +46,7 @@
 		qt6Packages.qt6ct
 		whitesur-icon-theme
 		kdePackages.qtstyleplugin-kvantum
+		inputs.subtui.packages.${pkgs.stdenv.hostPlatform.system}.default
 		#nix lang
 		nixd
 		alejandra
