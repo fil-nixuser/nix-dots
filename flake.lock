@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "beaker-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790704008,
+        "narHash": "sha256-Al/BE7uVRSmUGF/t1m0pWxF9jNgzdCVUrc5ZHkcPiQg=",
+        "ref": "refs/heads/master",
+        "rev": "10be7f581fb828e74f064ea7ad4fb0534ee8540a",
+        "revCount": 46,
+        "type": "git",
+        "url": "https://codeberg.org/gabrielf/beaker"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/gabrielf/beaker"
+      }
+    },
     "blender-cuda": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -18,26 +34,6 @@
       "original": {
         "owner": "adithyagenie",
         "repo": "blender-cuda-nixos",
-        "type": "github"
-      }
-    },
-    "driftwm": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1792396702,
-        "narHash": "sha256-YQjc6fKwXPAz/x5Jf5jDl+GUy/OZSTWtFkqbLe2jdTA=",
-        "owner": "malbiruk",
-        "repo": "driftwm",
-        "rev": "7ce05ed4daebb43c505fa1f361ccc11cf21c5820",
-        "type": "github"
-      },
-      "original": {
-        "owner": "malbiruk",
-        "repo": "driftwm",
         "type": "github"
       }
     },
@@ -84,11 +80,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792495086,
-        "narHash": "sha256-TyoYH983Nsc++1scw0SoOEKshPSJWJDxK7tTmuZ974M=",
+        "lastModified": 1793193205,
+        "narHash": "sha256-X6xa6sGA7RnJQuZGbFMC+K+KToWAlBDCCjJXfTwEPsw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ec80131710bffcdf3b8498cf41f3a0579833b023",
+        "rev": "095fef2f265c3c0da4fe315efba8f8a04495ab34",
         "type": "github"
       },
       "original": {
@@ -146,11 +142,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1792210252,
-        "narHash": "sha256-EFOYkCb5ZNtbPx1NInawzi4y/6JRdHia0ag0CbJoMNY=",
-        "rev": "09063bd1f2b36fd9fd793c36dfade7bd40a93dfc",
+        "lastModified": 1793110635,
+        "narHash": "sha256-yXRSdZdZZqccEL+j11lc1gFG1f7V5j8N7oPBTHwf7n4=",
+        "rev": "31ecbaca1bdefa45dffc409f0250bd8039ea0010",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1095516.09063bd1f2b3/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1103272.31ecbaca1bde/nixexprs.tar.zst"
       },
       "original": {
         "id": "nixpkgs",
@@ -174,6 +170,44 @@
         "type": "github"
       }
     },
+    "omnisearch": {
+      "inputs": {
+        "beaker-src": "beaker-src",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "omnisearch-src": "omnisearch-src"
+      },
+      "locked": {
+        "lastModified": 1793186146,
+        "narHash": "sha256-qRud0XpL3Mn0PGnU8C4ETeMe/UqcGTd5wSavKBuQGAE=",
+        "owner": "fil-nixuser",
+        "repo": "omnisearch-flake",
+        "rev": "fc41c9a54db349ca6616bdd5edfce30dae3e8397",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fil-nixuser",
+        "repo": "omnisearch-flake",
+        "type": "github"
+      }
+    },
+    "omnisearch-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792954208,
+        "narHash": "sha256-n+5q3q2mMhg7marSHIYGfwsJLLvLBkx2S1kkDyHfVJk=",
+        "ref": "refs/heads/master",
+        "rev": "e5a836e1359bbc06a1c197cd02b1732368928e62",
+        "revCount": 161,
+        "type": "git",
+        "url": "https://codeberg.org/gabrielf/omnisearch"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/gabrielf/omnisearch"
+      }
+    },
     "qml-niri": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -186,11 +220,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1786189893,
-        "narHash": "sha256-7iy5fo8tZ7BFw4Tgz6msS9B34xs1g7GVr9M6wU2XEJI=",
+        "lastModified": 1792843097,
+        "narHash": "sha256-JZ6jLkTw3axRE7dp5DTj9WRfj8Zx4l9ZRzhHhXXakrk=",
         "owner": "imiric",
         "repo": "qml-niri",
-        "rev": "93e603901bed2c4465d5675ae43fd52b7f7c4adf",
+        "rev": "d9e87e36ac0435b63e79f16fe591d79504dff2e9",
         "type": "github"
       },
       "original": {
@@ -207,11 +241,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792214446,
-        "narHash": "sha256-tq6x6CRG8Qikrjri59tzu9+b2gri8TjnShkGeh8kUgQ=",
+        "lastModified": 1792651682,
+        "narHash": "sha256-TiCGqLMpNIy7FERewgfKVluPsLVF96uc6x6xwZnMjdQ=",
         "ref": "refs/heads/master",
-        "rev": "2b4501a282689792b62e94f3fb30d8f512324fe6",
-        "revCount": 875,
+        "rev": "9b0f339b19057f4731bf3b48293307d7ef241671",
+        "revCount": 879,
         "type": "git",
         "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
       },
@@ -223,9 +257,9 @@
     "root": {
       "inputs": {
         "blender-cuda": "blender-cuda",
-        "driftwm": "driftwm",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
+        "omnisearch": "omnisearch",
         "qml-niri": "qml-niri",
         "quickshell": "quickshell",
         "uwu-colors": "uwu-colors",
@@ -312,11 +346,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792412429,
-        "narHash": "sha256-01La/n5mmzoHiAuBxMNNUx3EFPxJoNxr4uTWh3kk5m0=",
+        "lastModified": 1793309674,
+        "narHash": "sha256-d1Tvbgn//HQ3f1PDh/iIMEpvuUu9Lc4lJqiwGl18cY8=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "dfc5cd756966ccfc924f8925628acb1fe6f51651",
+        "rev": "2656d974602749ca5594b133e3022a241ab5d4e0",
         "type": "github"
       },
       "original": {

@@ -8,6 +8,7 @@
       ./nix-modules/programs.nix
       ./nix-modules/nvidia.nix
       ./nix-modules/services.nix
+      ./nix-modules/security.nix
       ./nix-modules/me-as-a-nixos-user.nix
     ];
   #moe
@@ -23,6 +24,7 @@
   environment.variables = {
     EDITOR = "hx";
     VISUAL = "hx";
+    TERMINAL = "ghostty";
     QT_QPA_PLATFORMTHEME = "qt6ct";
   };
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal" ];
@@ -50,18 +52,20 @@
      mpv
      unrar
      unzip
-     gnome-network-displays
+     xdg-desktop-portal-cosmic
+     xdg-desktop-portal
      inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
      inputs.blender-cuda.packages.${pkgs.stdenv.hostPlatform.system}.blender-with-cuda-unstable
    ];
-   nixpkgs.config.permittedInsecurePackages = [
-                "ventoy-1.1.17"
-    ];
   nix.settings = {
     substituters = [ "https://adithyagenie.cachix.org" ];
     trusted-public-keys = [ "adithyagenie.cachix.org-1:h6BSMboeVfxyrULWuRQqAyweo4AJRATekb88xotfQwc=" ];
+    connect-timeout = 3;
+    fallback = true;
+    http2 = false;
   };
+  
     
   #font pkgs
 	fonts.packages = with pkgs; [
@@ -74,13 +78,6 @@
  	nixpkgs.config.allowUnfree = true;
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-
-
-
-
-  #===========DANGER ZONE!!!!!!===============
-  # scary setting!!!!!!
-  # boooo
   system.stateVersion = "26.05";
 }
 

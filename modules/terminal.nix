@@ -10,7 +10,8 @@
 			background = "#000000";
 			background-opacity = 0.0;
 			font-size = 11;
-			shell-integration-features = ["ssh-terminfo" "ssh-env" "sudo"];
+			shell-integration-features = ["ssh-terminfo" "ssh-env" ];
+			confirm-close-surface = false;
 			keybind = [
 				"alt+e=new_split:auto"
 				"alt+q=close_surface"
@@ -27,16 +28,27 @@
 	programs.helix = {
 		enable = true;
 		languages = {
+			language-server.uwu_colors = {
+				command = "${pkgs.uwu-colors}/bin/uwu_colors";
+			};
 			language = [
 				{
 					name = "nix";
 					formatter.command = "alejandra";
-					language-servers = [ "nixd" "${pkgs.uwu-colors}/bin/uwu-colors" ];
+					language-servers = [ "nixd" "uwu_colors" ];
+					auto-format = true;
 				}
 				{
 					name = "c";
 					formatter.command = "clang-format";
 					language-servers = [ "clangd" ];
+					auto-format = true;
+				}
+				{
+					name = "rust";
+					formatter.command = "rustfmt";
+					language-servers = ["rust-analyzer"];
+					auto-format = true;
 				}
 			];
 			
@@ -63,11 +75,8 @@
 		enable = true;
 		initContent = "fastfetch";
 		shellAliases = {
-			nrs = "sudo nixos-rebuild switch --flake ~/.nix-dots#nil";
-			nixconf = "hx ~/.nix-dots/configuration.nix";
-			nrb = "sudo nixos-rebuild boot --flake ~/.nix-dots#nil";
-			hmconf = "hx ~/.nix-dots/home.nix";
-			flkconf = "hx ~/.nix-dots/flake.nix";
+			nrs = "doas nixos-rebuild switch --flake /home/fil/.nix-dots#nil";
+			nrb = "doas nixos-rebuild boot --flake /home/fil/.nix-dots#nil";
 			ls = "lsd";
 			cat = "bat";
 			cd = "z";
@@ -118,11 +127,6 @@
 				{
 					key = "│ 󰇅 hname   │";
 					type = "title";
-					format = "{host-name}";
-				}
-				{
-					key = "│ 󰅐 uptime  │";
-					type = "uptime";
 				}
 				{
 					key = "│  distro  │";

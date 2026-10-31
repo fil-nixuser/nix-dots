@@ -19,17 +19,17 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 			inputs.home-manager.follows = "home-manager";
 		};
-		driftwm = {
-			url = "github:malbiruk/driftwm";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
 		uwu-colors= {
 			url = "github:q60/uwu_colors";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		omnisearch = {
+			url = "github:fil-nixuser/omnisearch-flake";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 		blender-cuda.url = "github:adithyagenie/blender-cuda-nixos";
 	};
-	outputs = { self, nixpkgs, home-manager, ...}@inputs: {
+	outputs = { self, nixpkgs, home-manager, ... }@inputs: {
 		nixosConfigurations.nil = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 

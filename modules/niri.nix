@@ -12,7 +12,7 @@
 				saturation = 0.9;	
 			};
 			animations = {
-				slowdown = 1.25;
+				slowdown = 1.5;
 				_children = [
 					{
 						window-open._children = [
@@ -82,7 +82,7 @@
 			};
 			
 			binds = {
-				"Mod+Return".spawn = ["ghostty" "+new-window"];
+				"Mod+Return".spawn-sh = ["ghostty"];
 				"Mod+q".close-window = {};
 				"Mod+b".spawn = ["zen-beta"];
 				"Mod+e".spawn-sh = ["ghostty -e yazi"];
