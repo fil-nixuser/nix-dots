@@ -11,8 +11,8 @@
     enable = true;
     gtk.enable = true;
     x11.enable = true;
-    package = pkgs.apple-cursor;
-    name = "macOS";
+    package = pkgs.posy-cursors;
+    name = "Posy_Cursor_Mono_Black";
     size = 24;
   };
   #imports
