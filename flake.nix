@@ -27,8 +27,8 @@
       url = "github:fil-nixuser/omnisearch-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    fjord-launcher = {
-      url = "github:unmojang/FjordLauncher";
+    prism-launcher = {
+      url = "github:Diegiwg/PrismLauncher-Cracked";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blender-cuda.url = "github:adithyagenie/blender-cuda-nixos";

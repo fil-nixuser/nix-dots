@@ -48,6 +48,7 @@
     whitesur-icon-theme
     kdePackages.qtstyleplugin-kvantum
     jre25_minimal
+    inputs.prism-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
     #nix lang
     nixd
     alejandra
