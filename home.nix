@@ -47,6 +47,7 @@
     qt6Packages.qt6ct
     whitesur-icon-theme
     kdePackages.qtstyleplugin-kvantum
+    jre25_minimal
     #nix lang
     nixd
     alejandra
@@ -66,9 +67,7 @@
     python314Packages.pillow
     jq
     #rust
-    rust-analyzer
-    rustc
-    rustfmt
+    rustup
     #quickshell stuff
     qt6.qtdeclarative
     #messanger
